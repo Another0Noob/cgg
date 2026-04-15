@@ -8,7 +8,6 @@ import cgg_tools.Color;
 import cgg_tools.Vec2;
 import cgg_tools.ConstantColorSampler;
 
-
 public class app {
 
   public static void main(String[] args) {
@@ -23,7 +22,7 @@ public class app {
     var image = new Image(width, height);
     for (int i = 0; i != width; i++) {
       for (int j = 0; j != height; j++) {
-        image.setPixel(i, j, obj.getColor(new Vec2(i,j)));
+        image.setPixel(i, j, obj.getColor(new Vec2(i, j)));
       }
     }
 

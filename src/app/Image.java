@@ -14,15 +14,15 @@ public class Image implements cgg_tools.Image {
   public Image(int width, int height) {
     this.width = width;
     this.height = height;
-    this.pixels = new double[width * height *3];
+    this.pixels = new double[width * height * 3];
   }
 
   // TODO store the RGB values of the pixel (i,j) in the image
   @Override
   public void setPixel(int i, int j, Color color) {
-    pixels[3* (j * width + i)] = color.r();
-    pixels[3* (j * width + i) + 1] = color.g();
-    pixels[3* (j * width + i) + 2] = color.b();
+    pixels[3 * (j * width + i)] = color.r();
+    pixels[3 * (j * width + i) + 1] = color.g();
+    pixels[3 * (j * width + i) + 2] = color.b();
   }
 
   // TODO use ImageWriter.writePNG to implement this
