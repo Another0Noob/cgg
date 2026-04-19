@@ -6,32 +6,6 @@ target/
 
 # Logs
 *.log
-
-# Temporary files
-*.tmp
-*.swp
-*.swo
-*~
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# IntelliJ IDEA
-.idea/
-*.iml
-
-# VS Code
-.vscode/
-
-# Eclipse
-.project
-.classpath
-.settings/
-
-# NetBeans
-nbproject/
-
 # Zed editor
 .zed/
 
@@ -40,5 +14,4 @@ nbproject/
 .cache/
 .lsp/
 
-# Maven wrapper (optional — keep if you add wrapper)
-.mvn/wrapper/maven-wrapper.jar
+/bin/

@@ -4,9 +4,7 @@
 
 package app;
 
-import cgg_tools.Color;
 import cgg_tools.Vec2;
-import cgg_tools.ConstantColorSampler;
 
 public class app {
 
@@ -16,7 +14,7 @@ public class app {
 
     // This object defines the contents of the image.
     // It must implement the cgg_tools.Sampler interface.
-    var obj = new ConstantColorSampler(Color.red);
+    var obj = new ColoredDiscs(500, 30.0, 1250.0, 20.0, 700.0, 10.0, 100.0);
 
     // iterate over all pixelzzz of the image
     var image = new Image(width, height);
@@ -27,6 +25,6 @@ public class app {
     }
 
     // Write the image to disk.
-    image.writePNG("a01-constant-color");
+    image.writePNG("a01-discs");
   }
 }

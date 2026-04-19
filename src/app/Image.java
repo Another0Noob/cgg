@@ -10,14 +10,12 @@ public class Image implements cgg_tools.Image {
   private int height;
   private double[] pixels;
 
-  // TODO create a double array for storage of the RGB Pixels
   public Image(int width, int height) {
     this.width = width;
     this.height = height;
     this.pixels = new double[width * height * 3];
   }
 
-  // TODO store the RGB values of the pixel (i,j) in the image
   @Override
   public void setPixel(int i, int j, Color color) {
     pixels[3 * (j * width + i)] = color.r();
@@ -25,7 +23,6 @@ public class Image implements cgg_tools.Image {
     pixels[3 * (j * width + i) + 2] = color.b();
   }
 
-  // TODO use ImageWriter.writePNG to implement this
   public void writePNG(String name) {
     ImageWriter.writePNG(name, pixels, width, height);
   }
