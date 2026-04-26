@@ -24,7 +24,7 @@ public class app {
     spheres.add(new Sphere(new Vec3(0.5, -0.7, -5.5), 0.45, Color.green));
     spheres.add(new Sphere(new Vec3(-2.0, -0.2, -9.0), 1.10, Color.red));
     spheres.add(new Sphere(new Vec3(1.0, -1.0, -8.0), 0.35, Color.yellow));
-    spheres.add(new Sphere(new Vec3(-1.8, 1.1, -7.5), 0.38, Color.magenta));
+    spheres.add(new Sphere(new Vec3(-1.8, 0.2, -7.5), 0.38, Color.magenta));
     // This object defines the contents of the image.
     // It must implement the cgg_tools.Sampler interface.
     var obj = new Raytracer(spheres, camera);
