@@ -4,7 +4,7 @@ import cgg_tools.Color;
 import cgg_tools.Util;
 import cgg_tools.Vec3;
 
-public record Sphere(Vec3 center, double radius) {
+public record Sphere(Vec3 center, double radius, Color color) {
 
   public Hit intersect(Ray r) {
     Vec3 x0o = Vec3.subtract(r.x0(), center);
@@ -42,6 +42,6 @@ public record Sphere(Vec3 center, double radius) {
     Vec3 xt = r.point_at(t);
     Vec3 n = Vec3.normalize(Vec3.subtract(xt, center));
 
-    return new Hit(t, xt, n, Color.cyan);
+    return new Hit(t, xt, n, color);
   }
 }
