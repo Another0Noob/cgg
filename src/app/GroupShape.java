@@ -20,7 +20,7 @@ public class GroupShape implements Shape {
     for (Shape shape : scene) {
       var temp = shape.intersect(r);
       if (temp != null) {
-        if (temp.t() < min) {
+        if (temp.t() <= min) {
           min = temp.t();
           hit = temp;
         }

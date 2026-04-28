@@ -24,14 +24,14 @@ public class app {
 
     // This object defines the contents of the image.
     // It must implement the cgg_tools.Sampler interface.
-    var obj = new Raytracer(camera, scene, Color.white);
+    var obj = new Raytracer(camera, scene, Color.black);
 
     // iterate over all pixelzzz of the image
     var image = new Image(width, height);
     image.sample(obj);
 
     // Write the image to disk.
-    image.writePNG("a03-test-scene");
+    image.writePNG("a03-own-scene");
   }
 
   public static void test() {

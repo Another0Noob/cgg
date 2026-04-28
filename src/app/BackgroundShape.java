@@ -9,7 +9,7 @@ public record BackgroundShape(Color color) implements Shape {
   @Override
   public Hit intersect(Ray r) {
     var t = Double.POSITIVE_INFINITY;
-    if (Util.almostEqual(r.t_max(), t)) {
+    if (r.t_max() < t) {
       return null;
     }
     var p = r.point_at(t);
