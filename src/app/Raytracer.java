@@ -1,42 +1,22 @@
 package app;
 
-import java.util.List;
-
 import cgg_tools.Color;
 import cgg_tools.Sampler;
 import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 
-public class Raytracer implements Sampler {
-
-  public Camera camera;
-  public List<Sphere> scene;
-
-  public Raytracer(List<Sphere> scene, Camera camera) {
-    this.scene = scene;
-    this.camera = camera;
-  }
+public record Raytracer(Camera camera, GroupShape scene, Color bg) implements Sampler {
 
   @Override
   public Color getColor(Vec2 p) {
     var ray = camera.generate_ray(p);
-    var min = Double.POSITIVE_INFINITY;
-    Hit hit = null;
-    for (Sphere sphere : scene) {
-      var temp = sphere.intersect(ray);
-      if (temp != null) {
-        if (temp.t() < min) {
-          min = temp.t();
-          hit = temp;
-        }
-      }
+    var hit = scene.intersect(ray);
+    if (hit == null) {
+      return bg;
+    } else {
+      return shade(hit.normal(), hit.color());
     }
 
-    if (hit != null) {
-      return shade(hit.n(), hit.c());
-    } else {
-      return Color.white;
-    }
   }
 
   static Color shade(Vec3 normal, Color color) {
