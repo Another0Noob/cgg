@@ -16,11 +16,11 @@ public class app {
     int height = 720;
     Camera camera = new Camera(70, width, height, new Vec3(0, 0, 0));
     var scene = new GroupShape(
-        new BackgroundShape(Color.multiply(0.7, Color.white)),
-        new DiscShape(new Vec3(0.0, -0.5, 0), 100, Color.yellow),
-        new SphereShape(new Vec3(-1, -0.0, -2.5), 0.7, Color.red),
-        new SphereShape(new Vec3(0, -0.25, -2.5), 0.5, Color.green),
-        new SphereShape(new Vec3(1, -0.25, -2.5), 0.7, Color.blue));
+        new BackgroundShape(Color.multiply(0.5, Color.cyan)),
+        new DiscShape(new Vec3(0.0, -0.5, -10), 150, Color.magenta),
+        new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, Color.red),
+        new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, Color.yellow),
+        new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, Color.blue));
 
     // This object defines the contents of the image.
     // It must implement the cgg_tools.Sampler interface.
