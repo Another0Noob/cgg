@@ -14,7 +14,7 @@ public record Raytracer(Camera camera, GroupShape scene, Color bg) implements Sa
     if (hit == null) {
       return bg;
     } else {
-      return shade(hit.normal(), hit.color());
+      return hit.material().shade(hit, null, null, Color.cyan);
     }
 
   }

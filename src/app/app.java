@@ -15,12 +15,13 @@ public class app {
     int width = 1280;
     int height = 720;
     Camera camera = new Camera(70, width, height, new Vec3(0, 0, 0));
+    var mat = new DummyMaterial();
     var scene = new GroupShape(
-        new BackgroundShape(Color.multiply(0.5, Color.cyan)),
-        new DiscShape(new Vec3(0.0, -0.5, -10), 150, Color.magenta),
-        new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, Color.red),
-        new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, Color.yellow),
-        new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, Color.blue));
+        new BackgroundShape(mat),
+        new DiscShape(new Vec3(0.0, -0.5, -10), 150, mat),
+        new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat),
+        new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat),
+        new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat));
 
     // This object defines the contents of the image.
     // It must implement the cgg_tools.Sampler interface.
@@ -31,7 +32,7 @@ public class app {
     image.sample(obj);
 
     // Write the image to disk.
-    image.writePNG("a03-own-scene");
+    image.writePNG("dummy");
   }
 
   public static void test() {
@@ -40,9 +41,10 @@ public class app {
     Ray ray3 = new Ray(new Vec3(0, 0, -4), Vec3.nzAxis, 0, Double.POSITIVE_INFINITY);
     Ray ray4 = new Ray(Vec3.zero, Vec3.nzAxis, 0, 2);
 
-    SphereShape sphere1 = new SphereShape(new Vec3(0, 0, -2), 1, Color.black);
-    SphereShape sphere2 = new SphereShape(new Vec3(0, -1, -2), 1, Color.black);
-    SphereShape sphere3 = new SphereShape(new Vec3(0, 0, -4), 1, Color.black);
+    var mat = new DummyMaterial();
+    SphereShape sphere1 = new SphereShape(new Vec3(0, 0, -2), 1, mat);
+    SphereShape sphere2 = new SphereShape(new Vec3(0, -1, -2), 1, mat);
+    SphereShape sphere3 = new SphereShape(new Vec3(0, 0, -4), 1, mat);
 
     Hit h1 = sphere1.intersect(ray1);
     assert h1 != null;
