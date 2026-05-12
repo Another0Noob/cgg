@@ -1,6 +1,5 @@
 package app;
 
-import cgg_tools.Color;
 import cgg_tools.Util;
 import cgg_tools.Vec3;
 

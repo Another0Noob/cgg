@@ -5,26 +5,24 @@ import cgg_tools.Sampler;
 import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 
-public record Raytracer(Camera camera, GroupShape scene, Color bg) implements Sampler {
+public record Raytracer(Camera camera, GroupShape shapes, Scene lights, Color bg) implements Sampler {
 
   @Override
   public Color getColor(Vec2 p) {
     var ray = camera.generate_ray(p);
-    var hit = scene.intersect(ray);
+    var hit = shapes.intersect(ray);
     if (hit == null) {
       return bg;
     } else {
-      return hit.material().shade(hit, null, null, Color.cyan);
+      Color color = Color.black;
+      for (Light light : lights.lights()) {
+        color = Color.add(color,
+            hit.material().shade(hit,
+                Vec3.negate(ray.dir()),
+                light.to_light(hit.pos()),
+                light.color_at(hit.pos())));
+      }
+      return Color.add(color, hit.material().ambient(hit, lights.ambient()));
     }
-
   }
-
-  static Color shade(Vec3 normal, Color color) {
-    Vec3 lightDir = Vec3.normalize(new Vec3(1, 1, 0.5));
-    double cos_angle = Math.max(0, Vec3.dot(lightDir, normal));
-    Color ambient = Color.multiply(0.1, color);
-    Color diffuse = Color.multiply(0.9 * cos_angle, color);
-    return Color.add(ambient, diffuse);
-  }
-
 }

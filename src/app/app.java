@@ -4,6 +4,8 @@
 
 package app;
 
+import java.util.ArrayList;
+
 import cgg_tools.Color;
 import cgg_tools.Util;
 import cgg_tools.Vec3;
@@ -15,24 +17,31 @@ public class app {
     int width = 1280;
     int height = 720;
     Camera camera = new Camera(70, width, height, new Vec3(0, 0, 0));
-    var mat = new DummyMaterial();
+    var mat = new PhongMaterial(
+        new Color(0.1, 0.1, 0.1),
+        new Color(0.4, 0.4, 0.4),
+        new Color(0.4, 0.4, 0.4),
+        50);
     var scene = new GroupShape(
-        new BackgroundShape(mat),
-        new DiscShape(new Vec3(0.0, -0.5, -10), 150, mat),
+        // new BackgroundShape(mat),
+        // new DiscShape(new Vec3(0.0, -0.5, -10), 150, mat),
         new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat),
         new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat),
         new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat));
 
     // This object defines the contents of the image.
     // It must implement the cgg_tools.Sampler interface.
-    var obj = new Raytracer(camera, scene, Color.black);
+    var l = new ArrayList<Light>();
+    l.add(new DirectionalLight(Color.white, new Vec3(1, -1, -1)));
+    var lights = new Scene(l, Color.yellow);
+    var obj = new Raytracer(camera, scene, lights, Color.black);
 
     // iterate over all pixelzzz of the image
     var image = new Image(width, height);
     image.sample(obj);
 
     // Write the image to disk.
-    image.writePNG("dummy");
+    image.writePNG("a04-directional");
   }
 
   public static void test() {

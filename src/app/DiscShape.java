@@ -1,8 +1,7 @@
 package app;
 
-import cgg_tools.Vec3;
-import cgg_tools.Color;
 import cgg_tools.Util;
+import cgg_tools.Vec3;
 
 public record DiscShape(Vec3 origin, double radius, Material material) implements Shape {
 
