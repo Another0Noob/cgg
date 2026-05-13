@@ -12,7 +12,7 @@ public record DirectionalLight(Color color, Vec3 dir) implements Light {
 
   @Override
   public double distance(Vec3 receiver_position) {
-    return Double.POSITIVE_INFINITY;
+    return Double.MAX_VALUE;
   }
 
   @Override

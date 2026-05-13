@@ -17,31 +17,38 @@ public class app {
     int width = 1280;
     int height = 720;
     Camera camera = new Camera(70, width, height, new Vec3(0, 0, 0));
-    var mat = new PhongMaterial(
-        new Color(0.1, 0.1, 0.1),
-        new Color(0.4, 0.4, 0.4),
-        new Color(0.4, 0.4, 0.4),
-        50);
-    var scene = new GroupShape(
-        // new BackgroundShape(mat),
-        // new DiscShape(new Vec3(0.0, -0.5, -10), 150, mat),
-        new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat),
-        new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat),
-        new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat));
 
-    // This object defines the contents of the image.
-    // It must implement the cgg_tools.Sampler interface.
-    var l = new ArrayList<Light>();
-    l.add(new DirectionalLight(Color.white, new Vec3(1, -1, -1)));
-    var lights = new Scene(l, Color.yellow);
-    var obj = new Raytracer(camera, scene, lights, Color.black);
+    var mat1 = phong(52, 86, 154, 60);
+    var mat2 = phong(169, 194, 241, 40);
+    var mat3 = phong(34, 53, 128, 40);
+    var shapes = new GroupShape(
+        new BackgroundShape(mat2),
+        new DiscShape(new Vec3(0.0, -1, -10), 150, mat3),
+        new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
+        new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat1),
+        new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1));
 
-    // iterate over all pixelzzz of the image
+    var lights = new ArrayList<Light>();
+    lights.add(new PointLight(Color.multiply(Color.white, 30), new Vec3(0, 5, -5)));
+    lights.add(new PointLight(Color.multiply(rgb(245, 172, 186), 30), new Vec3(3, 4, -4)));
+    lights.add(new PointLight(Color.multiply(rgb(88, 203, 252), 30), new Vec3(-3, 6, -6)));
+
+    var scene = new Scene(shapes, lights, rgb(122, 136, 192));
+    var obj = new Raytracer(camera, scene, Color.black);
+
     var image = new Image(width, height);
     image.sample(obj);
 
-    // Write the image to disk.
-    image.writePNG("a04-directional");
+    image.writePNG("a04-point");
+  }
+
+  public static PhongMaterial phong(int r, int g, int b, double s) {
+    var col = rgb(r, g, b);
+    return new PhongMaterial(col, col, col, s);
+  }
+
+  public static Color rgb(int r, int g, int b) {
+    return new Color((double) r / 255, (double) g / 255, (double) b / 255);
   }
 
   public static void test() {
@@ -75,6 +82,11 @@ public class app {
 
     Hit h5 = sphere3.intersect(ray4);
     assert h5 == null;
-    System.out.println("All tests passed!");
+
+    var l = new PointLight(Color.white, new Vec3(0, 3, 4));
+
+    assert Vec3.almostEqual(l.to_light(new Vec3(0, 3, 4)), new Vec3(0, 3, 4));
+    assert Util.almostEqual(l.distance(new Vec3(0, 0, 0)), 5);
+    assert Util.almostEqual(l.color_at(new Vec3(0, 0, 0)).r(), 1.0 / 25.0);
   }
 }
