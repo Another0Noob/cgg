@@ -7,6 +7,7 @@ package app;
 import java.util.ArrayList;
 
 import cgg_tools.Color;
+import cgg_tools.Mat4x4;
 import cgg_tools.Util;
 import cgg_tools.Vec3;
 
@@ -16,12 +17,19 @@ public class app {
     test();
     int width = 1280;
     int height = 720;
-    Camera camera = new Camera(70, width, height, new Vec3(0, 0, 0));
 
+    var matC = Mat4x4.identity;
+    var moveC = Mat4x4.move(5.5, 1, 8);
+    var rotC = Mat4x4.rotate(Vec3.yAxis, 90);
+    var rot2C = Mat4x4.rotate(Vec3.nxAxis, 10);
+    matC = Mat4x4.multiply(matC, rotC, moveC, rot2C);
+    Camera camera = new Camera(70, width, height, Vec3.zero, matC);
+
+    var matS = Mat4x4.identity;
     var mat1 = phong(52, 86, 154, 60);
     var mat2 = phong(169, 194, 241, 40);
     var mat3 = phong(34, 53, 128, 40);
-    var shapes = new GroupShape(
+    var shapes = new GroupShape(matS,
         new BackgroundShape(mat2),
         new DiscShape(new Vec3(0.0, -1, -10), 150, mat3),
         new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
@@ -39,7 +47,7 @@ public class app {
     var image = new Image(width, height);
     image.sample(obj);
 
-    image.writePNG("a04-point");
+    image.writePNG("a05-cuboids");
   }
 
   public static PhongMaterial phong(int r, int g, int b, double s) {

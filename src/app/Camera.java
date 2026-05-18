@@ -1,5 +1,6 @@
 package app;
 
+import cgg_tools.Mat4x4;
 import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 
@@ -8,19 +9,22 @@ public class Camera {
   double a;
   double w;
   double h;
-
   Vec3 origin;
+  Mat4x4 mat;
 
-  public Camera(double a, double w, double h, Vec3 origin) {
+  public Camera(double a, double w, double h, Vec3 origin, Mat4x4 mat) {
     this.a = a;
     this.w = w;
     this.h = h;
     this.origin = origin;
+    this.mat = mat;
   }
 
   public Ray generate_ray(Vec2 pos) {
-    return new Ray(this.origin, new Vec3(-(this.w / 2) + pos.x(), this.h / 2 - pos.y(),
-        -(this.w / 2) / Math.tan(Math.toRadians(this.a / 2))), 0, Double.POSITIVE_INFINITY);
+    return new Ray(Mat4x4.multiplyPoint(mat, origin),
+        Mat4x4.multiplyDirection(mat,
+            new Vec3(-(w / 2) + pos.x(), h / 2 - pos.y(), -(w / 2) / Math.tan(Math.toRadians(a / 2)))),
+        0, Double.POSITIVE_INFINITY);
   }
 
   public double getA() {
@@ -55,4 +59,11 @@ public class Camera {
     this.origin = origin;
   }
 
+  public Mat4x4 getMat() {
+    return mat;
+  }
+
+  public void setMat(Mat4x4 mat) {
+    this.mat = mat;
+  }
 }
