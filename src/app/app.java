@@ -31,7 +31,7 @@ public class app {
     var mat3 = phong(34, 53, 128, 40);
     var shapes = new GroupShape(matS,
         new BackgroundShape(mat2),
-        new RectShape(new Vec3(-2.0, -1, -6), 15, 15, mat3),
+        new RectShape(new Vec3(-2.0, -1, -6), Vec3.yAxis, 15, 15, mat3),
         new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
         new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat1),
         new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1));

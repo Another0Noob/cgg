@@ -9,6 +9,7 @@ public class CuboidShape implements Shape {
 
   public CuboidShape(Vec3 center, Vec3 size, Material material) {
     groupShape = new GroupShape(Mat4x4.identity,
+
         new RectShape());
   }
 
