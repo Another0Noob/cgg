@@ -3,16 +3,17 @@ package app;
 import cgg_tools.Vec3;
 import cgg_tools.Util;
 
-public record RectShape(Vec3 center, Vec3 dir, double width, double height, Material material) implements Shape {
+public record RectShape(Vec3 center, double width, double height, Material material) implements Shape {
 
   @Override
   public Hit intersect(Ray r) {
-    var a = Vec3.dot(Vec3.subtract(center, r.origin()), dir);
+    var n = Vec3.yAxis;
+    var a = Vec3.dot(Vec3.subtract(center, r.origin()), n);
     if (Util.almostEqual(a, 0)) {
       return null;
     }
 
-    var b = Vec3.dot(r.dir(), dir);
+    var b = Vec3.dot(r.dir(), n);
     if (Util.almostEqual(b, 0)) {
       return null;
     }
@@ -30,7 +31,7 @@ public record RectShape(Vec3 center, Vec3 dir, double width, double height, Mate
       return null;
     }
 
-    return new Hit(t, point, dir, material);
+    return new Hit(t, point, n, material);
 
   }
 

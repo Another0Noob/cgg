@@ -19,7 +19,7 @@ public class app {
     int height = 720;
 
     var matC = Mat4x4.identity;
-    var moveC = Mat4x4.move(5.5, 1, 8);
+    var moveC = Mat4x4.move(5, 1, 8);
     var rotC = Mat4x4.rotate(Vec3.yAxis, 90);
     var rot2C = Mat4x4.rotate(Vec3.nxAxis, 10);
     matC = Mat4x4.multiply(matC, rotC, moveC, rot2C);
@@ -31,10 +31,13 @@ public class app {
     var mat3 = phong(34, 53, 128, 40);
     var shapes = new GroupShape(matS,
         new BackgroundShape(mat2),
-        new RectShape(new Vec3(-2.0, -1, -6), Vec3.yAxis, 15, 15, mat3),
+        new RectShape(new Vec3(-2.0, -1, -6), 15, 15, mat3),
         new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
         new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat1),
-        new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1));
+        new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1),
+        new CuboidShape(new Vec3(2, 0, -4), new Vec3(0.5, 1, 0.5), mat1),
+        new CuboidShape(new Vec3(4, -0.5, -4), new Vec3(1, 0.5, 2), mat1),
+        new CuboidShape(new Vec3(-2, 1, -2), new Vec3(3, 3, 3), mat1));
 
     var lights = new ArrayList<Light>();
     lights.add(new PointLight(Color.multiply(Color.white, 30), new Vec3(0, 5, -5)));
