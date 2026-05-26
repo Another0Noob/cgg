@@ -14,6 +14,7 @@ public class SnakeShape implements Shape {
   public SnakeShape(Mat4x4 matrix, Material material, double length, double angle1, double angle2, double angle3) {
     var cube = new CuboidShape(new Vec3(length / 2, 0, 0), new Vec3(length, 0.2, 0.2), material);
     var joint = new SphereShape(Vec3.zero, 0.25, material);
+    // adjust cube and joint position. move up
 
     var part = new GroupShape(Mat4x4.identity, joint, cube);
 
