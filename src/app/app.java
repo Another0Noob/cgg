@@ -29,6 +29,20 @@ public class app {
     var mat1 = phong(52, 86, 154, 60);
     var mat2 = phong(169, 194, 241, 40);
     var mat3 = phong(34, 53, 128, 40);
+
+    var matC1R = Mat4x4.rotate(Vec3.zAxis, -45);
+    var matC1M = Mat4x4.move(-2, 0, -9);
+    var matC1 = Mat4x4.multiply(matC1M, matC1R);
+
+    var matC2R = Mat4x4.rotate(Vec3.xAxis, -45);
+    matC2R = Mat4x4.multiply(Mat4x4.rotate(Vec3.yAxis, 45), matC2R);
+    var matC2M = Mat4x4.move(1, 1, -5.5);
+    var matC2 = Mat4x4.multiply(matC2M, matC2R);
+
+    var matC3S = Mat4x4.scale(1.5, 2, 1.5);
+    var matC3M = Mat4x4.move(-5, 0, -5);
+    var matC3 = Mat4x4.multiply(matC3M, matC3S);
+
     var shapes = new GroupShape(matS,
         new BackgroundShape(mat2),
         new RectShape(new Vec3(-2.0, -1, -6), 15, 15, mat3),
@@ -37,7 +51,10 @@ public class app {
         new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1),
         new CuboidShape(new Vec3(2, 0, -4), new Vec3(0.5, 1, 0.5), mat1),
         new CuboidShape(new Vec3(4, -0.5, -4), new Vec3(1, 0.5, 2), mat1),
-        new CuboidShape(new Vec3(-2, 1, -2), new Vec3(3, 3, 3), mat1));
+        new CuboidShape(new Vec3(-2, 1, -2), new Vec3(3, 3, 3), mat1),
+        new GroupShape(matC1, new OpenCylinderShape(1, 0, 1, mat1)),
+        new GroupShape(matC2, new ClosedCylinderShape(0.5, 0, 1.5, mat1, mat1)),
+        new GroupShape(matC3, new OpenCylinderShape(1.2, 0, 1, mat1)));
 
     var lights = new ArrayList<Light>();
     lights.add(new PointLight(Color.multiply(Color.white, 30), new Vec3(0, 5, -5)));
@@ -50,7 +67,7 @@ public class app {
     var image = new Image(width, height);
     image.sample(obj);
 
-    image.writePNG("a05-cuboids");
+    image.writePNG("a06-jointythings");
   }
 
   public static PhongMaterial phong(int r, int g, int b, double s) {
