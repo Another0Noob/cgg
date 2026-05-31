@@ -43,18 +43,32 @@ public class app {
     var matC3M = Mat4x4.move(-5, 0, -5);
     var matC3 = Mat4x4.multiply(matC3M, matC3S);
 
+    var matSnS = Mat4x4.scale(0.6, 0.6, 0.6);
+    var matSnM = Mat4x4.move(2, 0.1, -5);
+    var matSnR = Mat4x4.rotate(Vec3.yAxis, 90);
+    var matSnR2 = Mat4x4.rotate(Vec3.xAxis, 90);
+    var matSn = Mat4x4.multiply(matSnM, matSnR, matSnR2, matSnS);
+    var snake = new SnakeShape(matSn, mat1, 0.8, 30, -10, 20);
+
+    var matSn2S = Mat4x4.scale(0.4, 0.4, 0.4);
+    var matSn2M = Mat4x4.move(3, 0.1, -3);
+    var matSn2R2 = Mat4x4.rotate(Vec3.xAxis, 90);
+    var matSn2R3 = Mat4x4.rotate(Vec3.zAxis, 90);
+    var matSn2 = Mat4x4.multiply(matSn2M, matSn2R3, matSn2R2, matSn2S);
+    var snake2 = new SnakeShape(matSn2, mat1, 1.2, 30, -50, 60);
+
     var shapes = new GroupShape(matS,
         new BackgroundShape(mat2),
         new RectShape(new Vec3(-2.0, -1, -6), 15, 15, mat3),
-        new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
-        new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat1),
-        new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1),
-        new CuboidShape(new Vec3(2, 0, -4), new Vec3(0.5, 1, 0.5), mat1),
-        new CuboidShape(new Vec3(4, -0.5, -4), new Vec3(1, 0.5, 2), mat1),
-        new CuboidShape(new Vec3(-2, 1, -2), new Vec3(3, 3, 3), mat1),
+        // new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
+        // new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat1),
+        // new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1),
+        // new CuboidShape(new Vec3(2, 0, -4), new Vec3(0.5, 1, 0.5), mat1),
+        // new CuboidShape(new Vec3(4, -0.5, -4), new Vec3(1, 0.5, 2), mat1),
+        // new CuboidShape(new Vec3(-2, 1, -2), new Vec3(3, 3, 3), mat1),
         new GroupShape(matC1, new OpenCylinderShape(1, 0, 1, mat1)),
         new GroupShape(matC2, new ClosedCylinderShape(0.5, 0, 1.5, mat1, mat1)),
-        new GroupShape(matC3, new OpenCylinderShape(1.2, 0, 1, mat1)));
+        new GroupShape(matC3, new OpenCylinderShape(1.2, 0, 1, mat1)), snake, snake2);
 
     var lights = new ArrayList<Light>();
     lights.add(new PointLight(Color.multiply(Color.white, 30), new Vec3(0, 5, -5)));
