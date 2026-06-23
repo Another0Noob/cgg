@@ -33,7 +33,7 @@ public record RectShape(Vec3 center, double width, double height, Material mater
     }
 
     var u = (diff.x() + width / 2) / width;
-    var v = (diff.z() + height / 2) / height;
+    var v = 1 - (diff.z() + height / 2) / height;
 
     return new Hit(t, point, n, material, new Vec2(u, v));
 

@@ -25,12 +25,14 @@ public record DiscShape(Vec3 origin, double radius, Material material) implement
     }
 
     var point = r.point_at(t);
-    var diff = Vec3.distance(point, origin);
-    if (diff > radius) {
+    var diff = Vec3.subtract(point, origin);
+    if (Vec3.length(diff) > radius) {
       return null;
     }
 
-    // TODO: u, v = 0
-    return new Hit(t, point, n, material, Vec2.zero);
+    var u = (diff.x() + radius) / (radius * 2);
+    var v = 1 - (diff.z() + radius) / (radius * 2);
+
+    return new Hit(t, point, n, material, new Vec2(u, v));
   }
 }

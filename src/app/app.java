@@ -19,11 +19,10 @@ public class app {
     int width = 1280;
     int height = 720;
 
-    var matC = Mat4x4.identity;
-    var moveC = Mat4x4.move(5, 1, 8);
-    var rotC = Mat4x4.rotate(Vec3.yAxis, 90);
-    var rot2C = Mat4x4.rotate(Vec3.nxAxis, 10);
-    matC = Mat4x4.multiply(matC, rotC, moveC, rot2C);
+    var moveC = Mat4x4.move(0, 2, 3);
+    // var rotC = Mat4x4.rotate(Vec3.yAxis, 90);
+    var rot2C = Mat4x4.rotate(Vec3.xAxis, -30);
+    var matC = Mat4x4.multiply(moveC, rot2C);
     Camera camera = new Camera(70, width, height, Vec3.zero, matC);
 
     var matS = Mat4x4.identity;
@@ -63,17 +62,19 @@ public class app {
     var uv = new PhongMaterial(deb, deb, deb, s);
 
     var shapes = new GroupShape(matS,
-        new BackgroundShape(mat2),
-        new RectShape(new Vec3(-2.0, -1, -6), 15, 15, uv),
-        // new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
-        // new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat1),
-        // new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1),
-        // new CuboidShape(new Vec3(2, 0, -4), new Vec3(0.5, 1, 0.5), mat1),
-        // new CuboidShape(new Vec3(4, -0.5, -4), new Vec3(1, 0.5, 2), mat1),
-        // new CuboidShape(new Vec3(-2, 1, -2), new Vec3(3, 3, 3), mat1),
-        new GroupShape(matC1, new OpenCylinderShape(1, 0, 1, mat1)),
-        new GroupShape(matC2, new ClosedCylinderShape(0.5, 0, 1.5, mat1, mat1)),
-        new GroupShape(matC3, new OpenCylinderShape(1.2, 0, 1, mat1)), snake, snake2);
+        // new BackgroundShape(mat2),
+        new RectShape(new Vec3(-1.2, 0, 0), 2, 2, uv),
+        new DiscShape(new Vec3(1.2, 0, 0), 1, uv)
+    // new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
+    // new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat1),
+    // new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1),
+    // new CuboidShape(new Vec3(2, 0, -4), new Vec3(0.5, 1, 0.5), mat1),
+    // new CuboidShape(new Vec3(4, -0.5, -4), new Vec3(1, 0.5, 2), mat1),
+    // new CuboidShape(new Vec3(-2, 1, -2), new Vec3(3, 3, 3), mat1)
+    // new GroupShape(matC1, new OpenCylinderShape(1, 0, 1, mat1)),
+    // new GroupShape(matC2, new ClosedCylinderShape(0.5, 0, 1.5, mat1, mat1)),
+    // new GroupShape(matC3, new OpenCylinderShape(1.2, 0, 1, mat1)), snake, snake2
+    );
 
     var lights = new ArrayList<Light>();
     lights.add(new PointLight(Color.multiply(Color.white, 30), new Vec3(0, 5, -5)));
