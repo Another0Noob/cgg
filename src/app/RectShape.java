@@ -2,6 +2,7 @@ package app;
 
 import cgg_tools.Vec3;
 import cgg_tools.Util;
+import cgg_tools.Vec2;
 
 public record RectShape(Vec3 center, double width, double height, Material material) implements Shape {
 
@@ -31,7 +32,10 @@ public record RectShape(Vec3 center, double width, double height, Material mater
       return null;
     }
 
-    return new Hit(t, point, n, material);
+    var u = (diff.x() + width / 2) / width;
+    var v = (diff.z() + height / 2) / height;
+
+    return new Hit(t, point, n, material, new Vec2(u, v));
 
   }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cgg_tools.Mat4x4;
+import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 
 public class GroupShape implements Shape {
@@ -43,7 +44,7 @@ public class GroupShape implements Shape {
     if (hit != null) {
       return new Hit(hit.t(), Mat4x4.multiplyPoint(mat, hit.pos()),
           Vec3.normalize(Mat4x4.multiplyDirection(tMat, hit.normal())),
-          hit.material());
+          hit.material(), hit.uv());
     }
     return hit;
   }

@@ -1,13 +1,15 @@
 package app;
 
 import cgg_tools.Color;
+import cgg_tools.Sampler;
 import cgg_tools.Vec3;
 
-public record PhongMaterial(Color k_ambient, Color k_diffuse, Color k_specular, double shine) implements Material {
+public record PhongMaterial(Sampler k_ambient, Sampler k_diffuse, Sampler k_specular, Sampler shine)
+    implements Material {
 
   @Override
   public Color ambient(Hit hit, Color ambient_light) {
-    return Color.multiply(k_ambient, ambient_light);
+    return Color.multiply(k_ambient.getColor(hit.uv()), ambient_light);
   }
 
   @Override
@@ -26,11 +28,11 @@ public record PhongMaterial(Color k_ambient, Color k_diffuse, Color k_specular, 
 
     var diffuse = Color.multiply(
         diffuseDot,
-        Color.multiply(k_diffuse, incoming_light));
+        Color.multiply(k_diffuse.getColor(hit.uv()), incoming_light));
 
     var specular = Color.multiply(
-        Math.pow(specularDot, shine),
-        Color.multiply(k_specular, incoming_light));
+        Math.pow(specularDot, shine.getColor(hit.uv()).r()),
+        Color.multiply(k_specular.getColor(hit.uv()), incoming_light));
 
     return Color.add(diffuse, specular);
   }

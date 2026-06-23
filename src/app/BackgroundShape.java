@@ -1,5 +1,6 @@
 package app;
 
+import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 
 public record BackgroundShape(Material material) implements Shape {
@@ -11,7 +12,8 @@ public record BackgroundShape(Material material) implements Shape {
       return null;
     }
     var p = r.point_at(t);
-    return new Hit(t, p, Vec3.normalize(Vec3.negate(r.dir())), material);
+    // TODO: u, v = 0
+    return new Hit(t, p, Vec3.normalize(Vec3.negate(r.dir())), material, Vec2.zero);
   }
 
 }

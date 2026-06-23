@@ -51,12 +51,14 @@ public record OpenCylinderShape(double radius, double y_min, double y_max, Mater
     // at least one is valid, now choose the valid smaller one
     if (t1_valid && (!t2_valid || t1 <= t2)) {
       // t1 wins
+      // TODO: u, v = 0
       var n1 = Vec3.normalize(new Vec3(x1.x(), 0, x1.z()));
-      return new Hit(t1, x1, n1, material);
+      return new Hit(t1, x1, n1, material, Vec2.zero);
     } else {
       // t2 wins
+      // TODO: u, v = 0
       var n2 = Vec3.normalize(new Vec3(x2.x(), 0, x2.z()));
-      return new Hit(t2, x2, n2, material);
+      return new Hit(t2, x2, n2, material, Vec2.zero);
     }
   }
 

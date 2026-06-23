@@ -1,6 +1,7 @@
 package app;
 
 import cgg_tools.Util;
+import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 
 public record DiscShape(Vec3 origin, double radius, Material material) implements Shape {
@@ -29,6 +30,7 @@ public record DiscShape(Vec3 origin, double radius, Material material) implement
       return null;
     }
 
-    return new Hit(t, point, n, material);
+    // TODO: u, v = 0
+    return new Hit(t, point, n, material, Vec2.zero);
   }
 }

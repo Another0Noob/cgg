@@ -1,6 +1,7 @@
 package app;
 
 import cgg_tools.Util;
+import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 
 public record SphereShape(Vec3 center, double radius, Material material) implements Shape {
@@ -41,6 +42,7 @@ public record SphereShape(Vec3 center, double radius, Material material) impleme
     Vec3 xt = r.point_at(t);
     Vec3 n = Vec3.normalize(Vec3.subtract(xt, center));
 
-    return new Hit(t, xt, n, material);
+    // TODO: u, v = 0
+    return new Hit(t, xt, n, material, Vec2.zero);
   }
 }
