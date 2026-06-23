@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import cgg_tools.Color;
 import cgg_tools.ConstantColorSampler;
+import cgg_tools.ImageTexture;
 import cgg_tools.Mat4x4;
 import cgg_tools.Util;
 import cgg_tools.Vec3;
@@ -60,11 +61,24 @@ public class app {
     var deb = new uvDebugSampler();
     var s = new ConstantColorSampler(new Color(50, 50, 50));
     var uv = new PhongMaterial(deb, deb, deb, s);
+    var texMatR = Mat4x4.multiply(Mat4x4.move(0.5, 0.06, 0), Mat4x4.rotate(Vec3.zAxis, 45),
+        Mat4x4.scale(0.75, 0.75, 0.75));
+    var tex1R = new ImageTexture("textures/grass.jpg");
+    var tex2R = new ClampSampler(tex1R, Color.green);
+    var tex3R = new TransformSampler(tex2R, texMatR);
+    var texR = new PhongMaterial(tex3R, tex3R, tex3R, s);
+
+    var texMatS = Mat4x4.scale(2, 2, 2);
+
+    var tex1S = new ImageTexture("textures/earth-december.png");
+    var tex2S = new ClampSampler(tex1S, Color.blue);
+    var tex3S = new TransformSampler(tex2S, texMatS);
+    var texS = new PhongMaterial(tex3S, tex3S, tex3S, s);
 
     var shapes = new GroupShape(matS,
         // new BackgroundShape(mat2),
-        new RectShape(new Vec3(-1.2, 0, 0), 2, 2, uv),
-        new DiscShape(new Vec3(1.2, 0, 0), 1, uv)
+        new RectShape(new Vec3(-1.2, 0, 0), 2, 2, texR),
+        new SphereShape(new Vec3(1.4, 0, -1), 1, texS)
     // new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
     // new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat1),
     // new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1),
@@ -87,7 +101,7 @@ public class app {
     var image = new Image(width, height);
     image.sample(obj);
 
-    image.writePNG("a07-uv-debug");
+    image.writePNG("a07-own-scene");
   }
 
   public static PhongMaterial phong(int r, int g, int b, double s) {

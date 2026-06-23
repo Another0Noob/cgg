@@ -40,9 +40,11 @@ public record SphereShape(Vec3 center, double radius, Material material) impleme
     }
 
     Vec3 xt = r.point_at(t);
-    Vec3 n = Vec3.normalize(Vec3.subtract(xt, center));
+    var diff = Vec3.subtract(xt, center);
+    Vec3 n = Vec3.normalize(diff);
 
-    // TODO: u, v = 0
-    return new Hit(t, xt, n, material, Vec2.zero);
+    var u = (Math.PI - Math.atan2(diff.z(), diff.x())) / (Math.PI * 2);
+    var v = 1 - ((Math.acos(diff.y() / radius)) / Math.PI);
+    return new Hit(t, xt, n, material, new Vec2(u, v));
   }
 }
