@@ -1,5 +1,7 @@
 package app;
 
+import app.materials.Material;
+
 import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 

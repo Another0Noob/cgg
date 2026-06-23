@@ -1,10 +1,11 @@
-package app;
+package app.shapes;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import app.Hit;
+import app.Ray;
 import cgg_tools.Mat4x4;
-import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 
 public class GroupShape implements Shape {

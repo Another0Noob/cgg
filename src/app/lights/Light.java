@@ -1,4 +1,4 @@
-package app;
+package app.lights;
 
 import cgg_tools.Color;
 import cgg_tools.Vec3;

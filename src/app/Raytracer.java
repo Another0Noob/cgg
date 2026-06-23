@@ -1,5 +1,7 @@
 package app;
 
+import app.lights.Light;
+
 import cgg_tools.Color;
 import cgg_tools.Sampler;
 import cgg_tools.Util;

@@ -4,6 +4,11 @@
 
 package app;
 
+import app.shapes.*;
+import app.lights.*;
+import app.materials.*;
+import app.samplers.*;
+
 import java.util.ArrayList;
 
 import cgg_tools.Color;

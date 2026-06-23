@@ -1,4 +1,4 @@
-package app;
+package app.d2;
 
 import cgg_tools.Color;
 import cgg_tools.Vec2;

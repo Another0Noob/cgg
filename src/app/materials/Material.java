@@ -1,4 +1,6 @@
-package app;
+package app.materials;
+
+import app.Hit;
 
 import cgg_tools.Color;
 import cgg_tools.Vec3;

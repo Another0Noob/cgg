@@ -1,4 +1,4 @@
-package app;
+package app.samplers;
 
 import cgg_tools.Color;
 import cgg_tools.Mat4x4;

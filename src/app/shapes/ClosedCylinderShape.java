@@ -2,7 +2,11 @@
 // Berliner Hochschule für Technik
 // contact hschirmacher@bht-berlin.de
 
-package app;
+package app.shapes;
+
+import app.Hit;
+import app.Ray;
+import app.materials.Material;
 
 import static cgg_tools.Mat4x4.rotate;
 

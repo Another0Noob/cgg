@@ -1,4 +1,8 @@
-package app;
+package app.shapes;
+
+import app.Hit;
+import app.Ray;
+import app.materials.Material;
 
 import cgg_tools.Vec3;
 import cgg_tools.Util;
