@@ -22,8 +22,8 @@ public class app {
 
   public static void main(String[] args) {
     test();
-    int width = 1280;
-    int height = 720;
+    int width = 640;
+    int height = 360;
 
     var moveC = Mat4x4.move(0, 2, 3);
     // var rotC = Mat4x4.rotate(Vec3.yAxis, 90);
@@ -31,7 +31,7 @@ public class app {
     var matC = Mat4x4.multiply(moveC, rot2C);
     Camera camera = new Camera(70, width, height, Vec3.zero, matC);
 
-    var matS = Mat4x4.identity;
+    var matS = Mat4x4.rotate(Vec3.yAxis, -20);
     var mat1 = phong(52, 86, 154, 60);
     var mat2 = phong(169, 194, 241, 40);
     var mat3 = phong(34, 53, 128, 40);
@@ -101,12 +101,15 @@ public class app {
     lights.add(new PointLight(Color.multiply(rgb(88, 203, 252), 30), new Vec3(-3, 6, -6)));
 
     var scene = new Scene(shapes, lights, rgb(122, 136, 192));
-    var obj = new Raytracer(camera, scene, Color.black);
+    var tracer = new Raytracer(camera, scene, Color.black);
+
+    int n = 4;
+    var sampler = new StratifiedSampler(tracer, n, n);
 
     var image = new Image(width, height);
-    image.sample(obj);
+    image.sample(sampler);
 
-    image.writePNG("a07-own-scene");
+    image.writePNG("a08-stratified-" + n + "-" + n + "-");
   }
 
   public static PhongMaterial phong(int r, int g, int b, double s) {
