@@ -38,4 +38,15 @@ public record PhongMaterial(Sampler k_ambient, Sampler k_diffuse, Sampler k_spec
 
     return Color.add(diffuse, specular);
   }
+
+  @Override
+  public boolean does_ambient_lighting() {
+    return true;
+  }
+
+  @Override
+  public boolean does_direct_lighting() {
+    return true;
+  }
+
 }

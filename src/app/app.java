@@ -22,16 +22,16 @@ public class app {
 
   public static void main(String[] args) {
     test();
-    int width = 640;
-    int height = 360;
+    int width = 1280;
+    int height = 720;
 
     var moveC = Mat4x4.move(0, 2, 3);
     // var rotC = Mat4x4.rotate(Vec3.yAxis, 90);
     var rot2C = Mat4x4.rotate(Vec3.xAxis, -30);
     var matC = Mat4x4.multiply(moveC, rot2C);
-    Camera camera = new Camera(70, width, height, Vec3.zero, matC);
+    Camera camera = new Camera(70, width, height, Vec3.zero, Mat4x4.identity);
 
-    var matS = Mat4x4.rotate(Vec3.yAxis, -20);
+    var matS = Mat4x4.identity;
     var mat1 = phong(52, 86, 154, 60);
     var mat2 = phong(169, 194, 241, 40);
     var mat3 = phong(34, 53, 128, 40);
@@ -80,10 +80,29 @@ public class app {
     var tex3S = new TransformSampler(tex2S, texMatS);
     var texS = new PhongMaterial(tex3S, tex3S, tex3S, s);
 
+    var mirror = new MirrorMaterial(0.9);
+    var mirror2 = new MirrorMaterial(0.9);
+
+    var mirrorMat = Mat4x4.multiply(Mat4x4.move(-3, 0, -6), Mat4x4.rotate(Vec3.xAxis, 90),
+        Mat4x4.rotate(Vec3.nzAxis, 45));
+
+    var background = new DiffuseEmitterMaterial(new ConstantColorSampler(Color.white));
+    var sphere = new DiffuseMaterial(new ConstantColorSampler(Color.cyan));
+    var floor = new DiffuseMaterial(new ConstantColorSampler(Color.multiply(0.7, Color.white)));
+    var cube = new DiffuseEmitterMaterial(new ConstantColorSampler(Color.yellow));
+    var cube2 = new DiffuseMaterial(new ConstantColorSampler(Color.magenta));
+
     var shapes = new GroupShape(matS,
-        // new BackgroundShape(mat2),
-        new RectShape(new Vec3(-1.2, 0, 0), 2, 2, texR),
-        new SphereShape(new Vec3(1.4, 0, -1), 1, texS)
+        new BackgroundShape(background),
+        new SphereShape(new Vec3(0, -0.2, -4), 0.3, sphere),
+        new DiscShape(new Vec3(0, -2, -4), 15, floor),
+
+        // new RectShape(new Vec3(-0.7, -0.4, -2), 1, 1, mat1),
+        new SphereShape(new Vec3(1.5, -0.3, -4), 0.4, mat1),
+        new SphereShape(new Vec3(1, 0, -6), 1, mirror),
+        new GroupShape(mirrorMat, new RectShape(new Vec3(0, 0, 0), 3, 3, mirror2)),
+        new CuboidShape(new Vec3(-1, -0.4, -4), new Vec3(0.5, 0.5, 0.5), cube),
+        new CuboidShape(new Vec3(-0.5, 0.4, -4), new Vec3(0.5, 0.5, 0.5), cube2)
     // new SphereShape(new Vec3(-3, 0.25, -6.5), 0.7, mat1),
     // new SphereShape(new Vec3(0, 0.0, -4.5), 0.3, mat1),
     // new SphereShape(new Vec3(3, -0.25, -6.5), 0.7, mat1),
@@ -96,20 +115,22 @@ public class app {
     );
 
     var lights = new ArrayList<Light>();
-    lights.add(new PointLight(Color.multiply(Color.white, 30), new Vec3(0, 5, -5)));
-    lights.add(new PointLight(Color.multiply(rgb(245, 172, 186), 30), new Vec3(3, 4, -4)));
-    lights.add(new PointLight(Color.multiply(rgb(88, 203, 252), 30), new Vec3(-3, 6, -6)));
+    lights.add(new PointLight(Color.multiply(Color.white, 40), new Vec3(0, 5, -1)));
+    // lights.add(new PointLight(Color.multiply(rgb(245, 172, 186), 30), new Vec3(3,
+    // 4, -4)));
+    // lights.add(new PointLight(Color.multiply(rgb(88, 203, 252), 30), new Vec3(-3,
+    // 6, -6)));
 
     var scene = new Scene(shapes, lights, rgb(122, 136, 192));
-    var tracer = new Raytracer(camera, scene, Color.black);
+    var tracer = new Raytracer(camera, scene, Color.black, 10);
 
-    int n = 4;
+    int n = 5;
     var sampler = new StratifiedSampler(tracer, n, n);
 
     var image = new Image(width, height);
     image.sample(sampler);
 
-    image.writePNG("a08-stratified-" + n + "-" + n + "-");
+    image.writePNG("a09-own-scene");
   }
 
   public static PhongMaterial phong(int r, int g, int b, double s) {
