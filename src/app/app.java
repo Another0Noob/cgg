@@ -25,61 +25,62 @@ public class app {
     int width = 1280;
     int height = 720;
 
-    var moveC = Mat4x4.move(0, 2, 3);
+    // var moveC = Mat4x4.move(0, 2, 3);
     // var rotC = Mat4x4.rotate(Vec3.yAxis, 90);
-    var rot2C = Mat4x4.rotate(Vec3.xAxis, -30);
-    var matC = Mat4x4.multiply(moveC, rot2C);
+    // var rot2C = Mat4x4.rotate(Vec3.xAxis, -30);
+    // var matC = Mat4x4.multiply(moveC, rot2C);
     Camera camera = new Camera(70, width, height, Vec3.zero, Mat4x4.identity);
 
     var matS = Mat4x4.identity;
     var mat1 = phong(52, 86, 154, 60);
-    var mat2 = phong(169, 194, 241, 40);
-    var mat3 = phong(34, 53, 128, 40);
-
-    var matC1R = Mat4x4.rotate(Vec3.zAxis, -45);
-    var matC1M = Mat4x4.move(-2, 0, -9);
-    var matC1 = Mat4x4.multiply(matC1M, matC1R);
-
-    var matC2R = Mat4x4.rotate(Vec3.xAxis, -45);
-    matC2R = Mat4x4.multiply(Mat4x4.rotate(Vec3.yAxis, 45), matC2R);
-    var matC2M = Mat4x4.move(1, 1, -5.5);
-    var matC2 = Mat4x4.multiply(matC2M, matC2R);
-
-    var matC3S = Mat4x4.scale(1.5, 2, 1.5);
-    var matC3M = Mat4x4.move(-5, 0, -5);
-    var matC3 = Mat4x4.multiply(matC3M, matC3S);
-
-    var matSnS = Mat4x4.scale(0.6, 0.6, 0.6);
-    var matSnM = Mat4x4.move(2, 0.1, -5);
-    var matSnR = Mat4x4.rotate(Vec3.yAxis, 90);
-    var matSnR2 = Mat4x4.rotate(Vec3.xAxis, 90);
-    var matSn = Mat4x4.multiply(matSnM, matSnR, matSnR2, matSnS);
-    var snake = new SnakeShape(matSn, mat1, 0.8, 30, -10, 20);
-
-    var matSn2S = Mat4x4.scale(0.4, 0.4, 0.4);
-    var matSn2M = Mat4x4.move(3, 0.1, -3);
-    var matSn2R2 = Mat4x4.rotate(Vec3.xAxis, 90);
-    var matSn2R3 = Mat4x4.rotate(Vec3.zAxis, 90);
-    var matSn2 = Mat4x4.multiply(matSn2M, matSn2R3, matSn2R2, matSn2S);
-    var snake2 = new SnakeShape(matSn2, mat1, 1.2, 30, -50, 60);
-
-    var deb = new uvDebugSampler();
-    var s = new ConstantColorSampler(new Color(50, 50, 50));
-    var uv = new PhongMaterial(deb, deb, deb, s);
-    var texMatR = Mat4x4.multiply(Mat4x4.move(0.5, 0.06, 0), Mat4x4.rotate(Vec3.zAxis, 45),
-        Mat4x4.scale(0.75, 0.75, 0.75));
-    var tex1R = new ImageTexture("textures/grass.jpg");
-    var tex2R = new ClampSampler(tex1R, Color.green);
-    var tex3R = new TransformSampler(tex2R, texMatR);
-    var texR = new PhongMaterial(tex3R, tex3R, tex3R, s);
-
-    var texMatS = Mat4x4.scale(2, 2, 2);
-
-    var tex1S = new ImageTexture("textures/earth-december.png");
-    var tex2S = new ClampSampler(tex1S, Color.blue);
-    var tex3S = new TransformSampler(tex2S, texMatS);
-    var texS = new PhongMaterial(tex3S, tex3S, tex3S, s);
-
+    // var mat2 = phong(169, 194, 241, 40);
+    // var mat3 = phong(34, 53, 128, 40);
+    //
+    // var matC1R = Mat4x4.rotate(Vec3.zAxis, -45);
+    // var matC1M = Mat4x4.move(-2, 0, -9);
+    // var matC1 = Mat4x4.multiply(matC1M, matC1R);
+    //
+    // var matC2R = Mat4x4.rotate(Vec3.xAxis, -45);
+    // matC2R = Mat4x4.multiply(Mat4x4.rotate(Vec3.yAxis, 45), matC2R);
+    // var matC2M = Mat4x4.move(1, 1, -5.5);
+    // var matC2 = Mat4x4.multiply(matC2M, matC2R);
+    //
+    // var matC3S = Mat4x4.scale(1.5, 2, 1.5);
+    // var matC3M = Mat4x4.move(-5, 0, -5);
+    // var matC3 = Mat4x4.multiply(matC3M, matC3S);
+    //
+    // var matSnS = Mat4x4.scale(0.6, 0.6, 0.6);
+    // var matSnM = Mat4x4.move(2, 0.1, -5);
+    // var matSnR = Mat4x4.rotate(Vec3.yAxis, 90);
+    // var matSnR2 = Mat4x4.rotate(Vec3.xAxis, 90);
+    // var matSn = Mat4x4.multiply(matSnM, matSnR, matSnR2, matSnS);
+    // var snake = new SnakeShape(matSn, mat1, 0.8, 30, -10, 20);
+    //
+    // var matSn2S = Mat4x4.scale(0.4, 0.4, 0.4);
+    // var matSn2M = Mat4x4.move(3, 0.1, -3);
+    // var matSn2R2 = Mat4x4.rotate(Vec3.xAxis, 90);
+    // var matSn2R3 = Mat4x4.rotate(Vec3.zAxis, 90);
+    // var matSn2 = Mat4x4.multiply(matSn2M, matSn2R3, matSn2R2, matSn2S);
+    // var snake2 = new SnakeShape(matSn2, mat1, 1.2, 30, -50, 60);
+    //
+    // var deb = new uvDebugSampler();
+    // var s = new ConstantColorSampler(new Color(50, 50, 50));
+    // var uv = new PhongMaterial(deb, deb, deb, s);
+    // var texMatR = Mat4x4.multiply(Mat4x4.move(0.5, 0.06, 0),
+    // Mat4x4.rotate(Vec3.zAxis, 45),
+    // Mat4x4.scale(0.75, 0.75, 0.75));
+    // var tex1R = new ImageTexture("textures/grass.jpg");
+    // var tex2R = new ClampSampler(tex1R, Color.green);
+    // var tex3R = new TransformSampler(tex2R, texMatR);
+    // var texR = new PhongMaterial(tex3R, tex3R, tex3R, s);
+    //
+    // var texMatS = Mat4x4.scale(2, 2, 2);
+    //
+    // var tex1S = new ImageTexture("textures/earth-december.png");
+    // var tex2S = new ClampSampler(tex1S, Color.blue);
+    // var tex3S = new TransformSampler(tex2S, texMatS);
+    // var texS = new PhongMaterial(tex3S, tex3S, tex3S, s);
+    //
     var mirror = new MirrorMaterial(0.9);
     var mirror2 = new MirrorMaterial(0.9);
 

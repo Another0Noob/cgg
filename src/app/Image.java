@@ -1,9 +1,12 @@
 
 package app;
 
+import java.util.stream.Stream;
+
 import cgg_tools.Color;
 import cgg_tools.ImageWriter;
 import cgg_tools.Sampler;
+import cgg_tools.StopWatch;
 import cgg_tools.Vec2;
 
 public class Image implements cgg_tools.Image {
@@ -27,11 +30,15 @@ public class Image implements cgg_tools.Image {
   }
 
   public void sample(Sampler obj) {
-    for (int i = 0; i != width; i++) {
-      for (int j = 0; j != height; j++) {
-        this.setPixel(i, j, obj.getColor(new Vec2(i, j)));
-      }
-    }
+    System.out.println("generating: ...");
+    StopWatch watch = new StopWatch();
+
+    Stream.iterate(0, j -> j != height, j -> j + 1).unordered().parallel()
+        .forEach(j -> Stream.iterate(0, i -> i != width, i -> i + 1)
+            .forEach(i -> setPixel(i, j, obj.getColor(new Vec2(i, j)))));
+
+    watch.stop("rendering");
+
   }
 
   public void writePNG(String name) {

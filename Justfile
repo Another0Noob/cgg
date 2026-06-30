@@ -2,7 +2,7 @@ run:
   java src/app/app.java
 
 view:
-  chafa "$(java src/app/app.java | rg write | cut -d ' ' -f 2)"
+  java src/app/app.java | tee /dev/tty | rg write | cut -d ' ' -f 2 | xargs chafa
 
 imv:
-  java src/app/app.java | rg write | cut -d ' ' -f 2 | imv
+  java src/app/app.java | tee /dev/tty | rg write | cut -d ' ' -f 2 | xargs imv
