@@ -3,6 +3,7 @@ package app.shapes;
 import app.Hit;
 import app.Ray;
 import app.materials.Material;
+import cgg_tools.BoundingBox;
 import cgg_tools.Util;
 import cgg_tools.Vec2;
 import cgg_tools.Vec3;
@@ -49,5 +50,11 @@ public record SphereShape(Vec3 center, double radius, Material material) impleme
     var u = (Math.PI - Math.atan2(diff.z(), diff.x())) / (Math.PI * 2);
     var v = 1 - ((Math.acos(diff.y() / radius)) / Math.PI);
     return new Hit(t, xt, n, material, new Vec2(u, v));
+  }
+
+  @Override
+  public BoundingBox bounding_box() {
+    Vec3 s = new Vec3(radius, radius, radius);
+    return BoundingBox.around(Vec3.subtract(center, s), Vec3.add(center, s));
   }
 }

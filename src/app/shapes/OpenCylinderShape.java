@@ -10,6 +10,7 @@ import app.materials.Material;
 
 import static cgg_tools.Vec2.dot;
 
+import cgg_tools.BoundingBox;
 import cgg_tools.Util;
 import cgg_tools.Vec2;
 import cgg_tools.Vec3;
@@ -23,6 +24,11 @@ import cgg_tools.Vec3;
  * @param material material for the curved hull of the cylinder
  */
 public record OpenCylinderShape(double radius, double y_min, double y_max, Material material) implements Shape {
+
+  @Override
+  public BoundingBox bounding_box() {
+    return BoundingBox.around(new Vec3(-radius, y_min, radius), new Vec3(radius, y_max, radius));
+  }
 
   @Override
   public Hit intersect(Ray ray) {

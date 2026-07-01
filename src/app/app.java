@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import cgg_tools.Color;
 import cgg_tools.ConstantColorSampler;
-import cgg_tools.ImageTexture;
+// import cgg_tools.ImageTexture;
 import cgg_tools.Mat4x4;
 import cgg_tools.Util;
 import cgg_tools.Vec3;
@@ -131,7 +131,7 @@ public class app {
     var image = new Image(width, height);
     image.sample(sampler);
 
-    image.writePNG("a09-own-scene");
+    image.writePNG("a10-scene");
   }
 
   public static PhongMaterial phong(int r, int g, int b, double s) {

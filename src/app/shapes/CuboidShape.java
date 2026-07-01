@@ -3,7 +3,7 @@ package app.shapes;
 import app.Hit;
 import app.Ray;
 import app.materials.Material;
-
+import cgg_tools.BoundingBox;
 import cgg_tools.Mat4x4;
 import cgg_tools.Vec3;
 
@@ -40,6 +40,11 @@ public class CuboidShape implements Shape {
         new GroupShape(
             Mat4x4.multiply(Mat4x4.move(0, 0, -0.5), Mat4x4.rotate(Vec3.xAxis, 90)),
             rect));
+  }
+
+  @Override
+  public BoundingBox bounding_box() {
+    return groupShape.bounding_box();
   }
 
   @Override

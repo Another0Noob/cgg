@@ -30,7 +30,6 @@ public class Image implements cgg_tools.Image {
   }
 
   public void sample(Sampler obj) {
-    System.out.println("generating: ...");
     StopWatch watch = new StopWatch();
 
     Stream.iterate(0, j -> j != height, j -> j + 1).unordered().parallel()

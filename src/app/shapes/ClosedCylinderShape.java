@@ -10,6 +10,7 @@ import app.materials.Material;
 
 import static cgg_tools.Mat4x4.rotate;
 
+import cgg_tools.BoundingBox;
 import cgg_tools.Mat4x4;
 import cgg_tools.Vec3;
 
@@ -39,6 +40,11 @@ public class ClosedCylinderShape implements Shape {
     var bottom_disc = new DiscShape(new Vec3(0, -y_min, 0), radius, cap_material); // will be flipped!
     var bottom_group = new GroupShape(rotate(Vec3.nxAxis, 180), bottom_disc); // flipped, negates Y coord!
     this.shapes = new GroupShape(Mat4x4.identity, top_disc, cylinder, bottom_group);
+  }
+
+  @Override
+  public BoundingBox bounding_box() {
+    return shapes.bounding_box();
   }
 
   @Override

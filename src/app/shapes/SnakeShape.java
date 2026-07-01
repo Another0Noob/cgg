@@ -3,7 +3,7 @@ package app.shapes;
 import app.Hit;
 import app.Ray;
 import app.materials.Material;
-
+import cgg_tools.BoundingBox;
 import cgg_tools.Mat4x4;
 import cgg_tools.Vec3;
 
@@ -34,6 +34,11 @@ public class SnakeShape implements Shape {
     var segment1 = new GroupShape(mat1, part1, segment2);
     var root = new GroupShape(Mat4x4.identity, part0, segment1);
     shapes = new GroupShape(matrix, root);
+  }
+
+  @Override
+  public BoundingBox bounding_box() {
+    return shapes.bounding_box();
   }
 
   private GroupShape MakePart(Material material, double length) {

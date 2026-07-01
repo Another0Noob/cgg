@@ -5,6 +5,7 @@ import app.Ray;
 import app.materials.Material;
 
 import cgg_tools.Vec3;
+import cgg_tools.BoundingBox;
 import cgg_tools.Util;
 import cgg_tools.Vec2;
 
@@ -41,6 +42,12 @@ public record RectShape(Vec3 center, double width, double height, Material mater
 
     return new Hit(t, point, n, material, new Vec2(u, v));
 
+  }
+
+  @Override
+  public BoundingBox bounding_box() {
+    Vec3 s = new Vec3(width / 2, 0, height / 2);
+    return BoundingBox.around(Vec3.subtract(center, s), Vec3.add(center, s));
   }
 
 }

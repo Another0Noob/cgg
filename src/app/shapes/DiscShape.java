@@ -3,17 +3,17 @@ package app.shapes;
 import app.Hit;
 import app.Ray;
 import app.materials.Material;
-
+import cgg_tools.BoundingBox;
 import cgg_tools.Util;
 import cgg_tools.Vec2;
 import cgg_tools.Vec3;
 
-public record DiscShape(Vec3 origin, double radius, Material material) implements Shape {
+public record DiscShape(Vec3 center, double radius, Material material) implements Shape {
 
   @Override
   public Hit intersect(Ray r) {
     var n = Vec3.yAxis;
-    var a = Vec3.dot(Vec3.subtract(origin, r.origin()), n);
+    var a = Vec3.dot(Vec3.subtract(center, r.origin()), n);
     if (Util.almostEqual(a, 0)) {
       return null;
     }
@@ -29,7 +29,7 @@ public record DiscShape(Vec3 origin, double radius, Material material) implement
     }
 
     var point = r.point_at(t);
-    var diff = Vec3.subtract(point, origin);
+    var diff = Vec3.subtract(point, center);
     if (Vec3.length(diff) > radius) {
       return null;
     }
@@ -38,5 +38,11 @@ public record DiscShape(Vec3 origin, double radius, Material material) implement
     var v = 1 - (diff.z() + radius) / (radius * 2);
 
     return new Hit(t, point, n, material, new Vec2(u, v));
+  }
+
+  @Override
+  public BoundingBox bounding_box() {
+    Vec3 s = new Vec3(radius, 0, radius);
+    return BoundingBox.around(Vec3.subtract(center, s), Vec3.add(center, s));
   }
 }
